@@ -58,3 +58,5 @@ resource "google_storage_bucket" "data-lake-bucket" {
 - Docker: ```docker build . -t ingestion-container```
 - Terraform: ```terraform apply```
 
+## Conclusion
+This project encapsulates a real-world scenario of data engineering tasks including data ingestion, database management, and cloud infrastructure provisioning, showcasing the integration between Docker, Postgres, and GCP with Terraform.
