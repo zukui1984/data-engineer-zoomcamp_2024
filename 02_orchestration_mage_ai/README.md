@@ -2,16 +2,11 @@
 <img src="https://github.com/mage-ai/assets/blob/main/mascots/mascots-shorter.jpeg?raw=true">
 </div>
 
-## Data Engineering Zoomcamp - Week 2
-
-Welcome to DE Zoomcamp with Mage! 
+## Data orchestration - Mage AI (Alternative Airflow)
 
 Mage is an open-source, hybrid framework for transforming and integrating data. ✨
 
 In this module, you'll learn how to use the Mage platform to author and share _magical_ data pipelines. This will all be covered in the course, but if you'd like to learn a bit more about Mage, check out our docs [here](https://docs.mage.ai/introduction/overview). 
-
-[Get Started](https://github.com/mage-ai/mage-zoomcamp?tab=readme-ov-file#lets-get-started)
-[Assistance](https://github.com/mage-ai/mage-zoomcamp?tab=readme-ov-file#assistance)
 
 ## Let's get started
 
@@ -78,6 +73,15 @@ This repository should have the following structure:
 ├── docker-compose.yml
 └── requirements.txt
 ```
+
+# Data loader
+![image](https://github.com/zukui1984/data-engineer-zoomcamp_2024/assets/71074389/baee7abb-caa4-4edb-935a-827798bdda9b)
+
+# Data exporter
+![image](https://github.com/zukui1984/data-engineer-zoomcamp_2024/assets/71074389/cee68234-f15f-4023-8ca2-28332cf198ba)
+
+# Tree
+![image](https://github.com/zukui1984/data-engineer-zoomcamp_2024/assets/71074389/6a8d0271-4894-45ed-afd6-f5c928ee3742)
 
 ## Assistance
 
