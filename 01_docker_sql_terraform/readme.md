@@ -53,6 +53,8 @@ resource "google_storage_bucket" "data-lake-bucket" {
   name     = "ny-taxi-data-lake-${var.project_id}"
   location = "US"
 }
+
+
 ```
 ### Useful Commands
 - Docker: ```docker build . -t ingestion-container```
