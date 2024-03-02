@@ -4,13 +4,19 @@
 
 ## Data orchestration - Mage AI (Alternative Airflow)
 
+## Table of Contents
+- [Introduction](#introduction)
+- [Setting Up the Environment](#setting-up-the-environment)
+- [Workflow Orchestration with Prefect](#workflow-orchestration-with-prefect)
+- [ETL with GCP & Prefect](#etl-with-gcp--prefect)
+- [Parametrizing Flows & Deployments](#parametrizing-flows--deployments)
+- [Useful Commands](#useful-commands)
+- [External Resources](#external-resources)
+
+
 Mage is an open-source, hybrid framework for transforming and integrating data. ✨
 
 In this module, you'll learn how to use the Mage platform to author and share _magical_ data pipelines. This will all be covered in the course, but if you'd like to learn a bit more about Mage, check out our docs [here](https://docs.mage.ai/introduction/overview). 
-
-## Let's get started
-
-This repo contains a Docker Compose template for getting started with a new Mage project. It requires Docker to be installed locally. If Docker is not installed, please follow the instructions [here](https://docs.docker.com/get-docker/). 
 
 You can start by cloning the repo:
 
@@ -18,15 +24,9 @@ You can start by cloning the repo:
 git clone https://github.com/mage-ai/mage-zoomcamp.git mage-zoomcamp
 ```
 
-Navigate to the repo:
-
-```bash
-cd mage-data-engineering-zoomcamp
-```
-
 Rename `dev.env` to simply `.env`— this will _ensure_ the file is not committed to Git by accident, since it _will_ contain credentials in the future.
 
-Now, let's build the container
+After activate Docker Desktop we can start build the container
 
 ```bash
 docker compose build
@@ -38,11 +38,11 @@ Finally, start the Docker container:
 docker compose up
 ```
 
-Now, navigate to http://localhost:6789 in your browser! Voila! You're ready to get started with the course. 
+Now, navigate to http://localhost:6789 in the browser to see Mage AI 
 
 ### What just happened?
 
-We just initialized a new mage repository. It will be present in your project under the name `magic-zoomcamp`. If you changed the varable `PROJECT_NAME` in the `.env` file, it will be named whatever you set it to.
+I just initialized a new mage repository. It will be present in the project under the name `magic-zoomcamp`. If I changed the varable `PROJECT_NAME` in the `.env` file, it will be named whatever you set it to.
 
 This repository should have the following structure:
 
