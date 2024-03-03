@@ -3,7 +3,6 @@
 ## Table of Contents
 - [Introduction](#introduction)
 - [Setting Up the Environment - Postgres & Mage AI](#setting-up-the-environment)
-- [ETL with GCP & Prefect](#etl-with-gcp--prefect)
 - [Parametrizing Flows & Deployments](#parametrizing-flows--deployments)
 
 ## Introduction
@@ -58,7 +57,6 @@ Finally, start the Docker container:
 ```bash
 docker compose up
 ```
-
 
 Now, navigate to http://localhost:6789 in the browser to see Mage AI
 
