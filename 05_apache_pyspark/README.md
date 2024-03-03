@@ -165,3 +165,61 @@ rdd.filter(lambda row: True).take(1)
 start = dataetime (year=2020, month=1, day=1)
 rdd.filter(lambda row: row.lpep_pickup_datetime >= start).take(1)
 ```
+## Connecting Google Cloud Storage
+1. **Create GCP Bucket:** Note the bucket name `dtc_data_lake_nytaxi_zukui`
+2. **Setup gsutil:** Use `gsutil -m cp -r  pq/ gs://dtc_data_lake_nytaxi_zukui/pq `.
+3. **Create lib Folder & Install gsutil:** 
+   - `mkdir lib`
+   - `gsutil cp gs://hadoop-lib/gcs/gcs-connector-hadoop3-2.2.5.jar lib/`
+4. **IAM Permissions:** Ensure the service account has `Storage Object Viewer` role.
+5. **Bucket Permissions:** Verify permissions in GCP Console > Storage > Browser.
+
+## Creating Local Spark Cluster
+1. **Setup Spark:** Navigate to your Spark folder.
+2. **Start Spark Master & Slave:**
+   - Start Master: `./sbin/start-master.sh`
+   - View at `localhost:8080`.
+   - Start Slave: `./sbin/start-slave.sh spark://zukui-1984:7077`
+3. **Jupyter & PySpark:**
+   - Convert Jupyter to Python: `jupyter nbconvert --to=script 10_spark_duplicate_06.ipynb`
+   - Setup `PYTHONPATH` for PySpark.
+       * export PYTHONPATH="${SPARK_HOME}/python:${PYTHONPATH}"
+       * export PYTHONPATH="${SPARK_HOME}/python/lib/py4j-0.10.9.7-src.zip:${PYTHONPATH}" 
+   - Run Python Script: `python3 10_spark_duplicate_06.py`
+
+## Dataproc Cluster for Reports 2020 & 2021
+1. **Enable Dataproc in GCP Marketplace**
+2. **Submit Job in Dataproc:** Use `gsutil cp` for transferring scripts.
+   `gsutil cp 11_spark_duplicate_parser.py gs://dtc_data_lake_nytaxi_zukui/jnotebook/11_spark_duplicate_parser.py`
+3. **Use Dataproc to Create Reports:** Provide necessary arguments.
+   `--input_green=gs://dtc_data_lake_nytaxi_zukui/pq/green/2021/*`
+   `--input_yellow=gs://dtc_data_lake_nytaxi_zukui/pq/yellow/2021/*` 
+   `--output=gs://dtc_data_lake_nytaxi_zukui/report-2021`
+4. **Go to IAM to add "Dataproc Administrator**
+5. **Copy & paste Dataproc Documentation**
+  gcloud dataproc jobs submit pyspark \
+```bash
+     --cluster=dtc-spark-cluster \
+    --region=us-central1 \
+  gs://dtc_data_lake_nytaxi_zukui/jnotebook/11_spark_duplicate_parser.py \
+    -- \
+    --input_green=gs://dtc_data_lake_nytaxi_zukui/pq/green/2020/* \
+    --input_yellow=gs://dtc_data_lake_nytaxi_zukui/pq/yellow/2020/* \
+    --output=gs://dtc_data_lake_nytaxi_zukui/report-2020
+ ```
+## Connecting Spark to BigQuery
+1. **Upload Script to GCS:** `gsutil cp 12_spark_bigquery.py gs://dtc_data_lake_nytaxi_zukui/jnotebook/12_spark_bigquery.py`
+2. **Submit Pyspark Job with BigQuery Connector:**
+```bash
+   gcloud dataproc jobs submit pyspark \
+     --cluster=dtc-spark-cluster \
+     --region=us-central1 \
+     --jars=gs://spark-lib/bigquery/spark-bigquery-latest_2.12.jar \
+   gs://dtc_data_lake_nytaxi_zukui/jnotebook/12_spark_bigquery.py \
+     -- \
+     --input_green=gs://dtc_data_lake_nytaxi_zukui/pq/green/2020/* \
+     --input_yellow=gs://dtc_data_lake_nytaxi_zukui/pq/yellow/2020/* \
+     --output=trips_data_all.report-2020
+ ```
+3. **The data will uploaded on BigQuery `trips_all_data`**
+
