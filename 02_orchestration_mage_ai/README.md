@@ -1,24 +1,41 @@
-<div>
-<img src="https://github.com/mage-ai/assets/blob/main/mascots/mascots-shorter.jpeg?raw=true">
-</div>
-
 ## Data orchestration - Mage AI (Alternative Airflow)
 
 ## Table of Contents
 - [Introduction](#introduction)
-- [Setting Up the Environment](#setting-up-the-environment)
-- [Workflow Orchestration with Prefect](#workflow-orchestration-with-prefect)
+- [Setting Up the Environment - Postgres & Mage AI](#setting-up-the-environment)
 - [ETL with GCP & Prefect](#etl-with-gcp--prefect)
 - [Parametrizing Flows & Deployments](#parametrizing-flows--deployments)
-- [Useful Commands](#useful-commands)
-- [External Resources](#external-resources)
 
+## Introduction
+Mage is an open-source, hybrid framework for transforming and integrating data in data engineering workflow orchestration. ✨
 
-Mage is an open-source, hybrid framework for transforming and integrating data. ✨
+## Setting Up the Environment
+Steps for environment setup, including Docker and Prefect installations.
 
-In this module, you'll learn how to use the Mage platform to author and share _magical_ data pipelines. This will all be covered in the course, but if you'd like to learn a bit more about Mage, check out our docs [here](https://docs.mage.ai/introduction/overview). 
+Create Postgres setting
+```
+$ mkdir mage-zoomcamp
+$ docker run -it \
+  -e POSTGRES_USER="root" \
+  -e POSTGRES_PASSWORD="root" \
+  -e POSTGRES_DB="ny_taxi" \
+  -v $(pwd)/ny_taxi_postgres_data:/var/lib/postgresql/data \
+  -p 5432:5432 \
+  postgres:13
+```
+* On Mage portal io_config.yaml need to be adjust
+```
+  dev:
+    POSTGRES_CONNECT_TIMEOUT: 10 
+    POSTGRES_DBNAME: "{{ env_var('POSTGRES_DBNAME') }}"
+    POSTGRES_SCHEMA: "{{ env_var('POSTGRES_SCHEMA') }}"
+    POSTGRES_USER: "{{ env_var('POSTGRES_USER') }}"
+    POSTGRES_PASSWORD: "{{ env_var('POSTGRES_PASSWORD') }}"
+    POSTGRES_HOST: "{{ env_var('POSTGRES_HOST') }}"
+    POSTGRES_PORT: "{{ env_var('POSTGRES_PORT') }}"
+```
 
-You can start by cloning the repo:
+After this can start cloning the Mage repo:
 
 ```bash
 git clone https://github.com/mage-ai/mage-zoomcamp.git mage-zoomcamp
@@ -27,6 +44,10 @@ git clone https://github.com/mage-ai/mage-zoomcamp.git mage-zoomcamp
 Rename `dev.env` to simply `.env`— this will _ensure_ the file is not committed to Git by accident, since it _will_ contain credentials in the future.
 
 After activate Docker Desktop we can start build the container
+* To update latest Mage AI
+```bash
+docker pull mageai/mageai:latest
+```
 
 ```bash
 docker compose build
@@ -38,7 +59,16 @@ Finally, start the Docker container:
 docker compose up
 ```
 
-Now, navigate to http://localhost:6789 in the browser to see Mage AI 
+
+Now, navigate to http://localhost:6789 in the browser to see Mage AI
+
+## ETL with GCP & Prefect
+Guide on setting up ETL processes with GCP services, integrating with Prefect.
+
+## Parametrizing Flows & Deployments
+Instructions on how to parameterize Prefect flows for dynamic execution.
+
+In this module, you'll learn how to use the Mage platform to author and share _magical_ data pipelines. This will all be covered in the course, but if you'd like to learn a bit more about Mage, check out our docs [here](https://docs.mage.ai/introduction/overview). 
 
 ### What just happened?
 
