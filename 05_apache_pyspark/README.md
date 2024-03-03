@@ -1,28 +1,5 @@
 # Apache Spark Guide
 
-## Introduction
-
-Briefly introduce Apache Spark, emphasizing its importance in big data processing and analytics.
-
-## Prerequisites
-
-List the prerequisites for working with Apache Spark, including software requirements and basic knowledge foundations.
-
-## Installation
-
-### MacOS
-
-```bash
-# Install Java
-brew cask install java
-
-# Install Scala
-brew install scala
-
-# Install Apache Spark
-brew install apache-spark
-```
-
 ## Setting Up Java and Spark on Linux/Bash
 ### Java installation
 1. Download Java 11 using wget:
@@ -74,13 +51,27 @@ echo 'export PATH="$JAVA_HOME/bin:$PATH"'
 echo 'export SPARK_HOME="/mnt/c/Users/Anwender/Desktop/spark/spark-3.3.2-bin-hadoop3"' 
 echo 'export PATH="$SPARK_HOME/bin:$PATH"'
 add all above into nano ~/.bashrc
+then source ~/.bashrc
 ```
-
-
-
-# Install Apache Spark
+## PySpark setup
+1. For PySpark, set up a new folder and configure the environment:
+```bash
+export PYTHONPATH="${SPARK_HOME}/python:${PYTHONPATH}"
+export PYTHONPATH="${SPARK_HOME}/python/lib/py4j-0.10.9-src.zip:${PYTHONPATH}"
 ```
-Download Spark from the [official website](https://spark.apache.org) and follow the installation instructions.
+3. Launch Jupyter Notebook on port 8888 and install py4j:
+```bash
+jupyter notebook --port=8888
+pip install py4j
+```
+5. Start a Spark session in Jupyter Notebook:
+```bash
+from pyspark.sql import SparkSession
+spark = SparkSession.builder.master("local[*]").appName('test').getOrCreate()
+df = spark.read.option("header", "true").csv('taxi+_zone_lookup.csv')
+df.show()
+df.write.parquet('zones')
+```
 
 ### Spark fundamentals
 ```scala
