@@ -1,4 +1,21 @@
-# Apache Spark Guide
+## Spark Distributed Data Structures Overview
+
+### DataFrame
+- **User-Friendly**: Intuitive for users with extensive functions and library support.
+- **Optimized**: Built on RDDs, enhancing performance through lazy evaluation and DAG optimization.
+- **Structured Data**: Organizes data in rows and columns for efficient processing.
+
+### Dataset
+- **Type-Safe**: Exclusive to Java and Scala, offers limited Python support. Ideal for both structured and unstructured data.
+- **Customizable**: Supports custom classes and types, using lazy evaluation for optimized execution via DAG.
+
+### RDD (Resilient Distributed Dataset)
+- **Core Abstraction**: Offers in-depth control over distributed data processing, prioritizing manual optimization.
+- **Flexible**: Lazily evaluated without automatic logical plan construction, suitable for complex data processing tasks.
+
+These structures form the backbone of Spark's efficient data processing capabilities, each tailored for specific use cases and optimization levels.
+
+## Apache Spark Guide
 
 ## Setting Up Java and Spark on Linux/Bash
 ### Java installation
