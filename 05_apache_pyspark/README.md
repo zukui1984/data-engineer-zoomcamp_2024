@@ -89,7 +89,6 @@ df = spark.read.option("header", "true").csv('taxi+_zone_lookup.csv')
 df.show()
 df.write.parquet('zones')
 ```
-
 ### Spark fundamentals
 ```scala
 // Example: Creating a SparkSession
@@ -98,29 +97,71 @@ val spark = SparkSession.builder()
   .config("spark.some.config.option", "some-value")
   .getOrCreate()
 ```
-### Working with DataFrames
+### Spark and SQL
 ```scala
-// Example: Reading a JSON file into a DataFrame
-val df = spark.read.json("path/to/json/file")
-df.show()
+spark.sql("""
+SELECT * from trips_data LIMIT 5;
+""").show()
 ```
-### SQL Operations
 ```scala
-// Register the DataFrame as a SQL temporary view
-df.createOrReplaceTempView("people")
-
-// Perform a SQL query
-val sqlDF = spark.sql("SELECT * FROM people")
-sqlDF.show()
+spark.sql("""
+SELECT 
+    service_type,
+    COUNT(*) as trip_count
+FROM
+    trips_data
+GROUP BY
+    service_type
+""").show()
 ```
-### Custom schema
 ```scala
-// Define a custom schema
-val schema = new StructType()
-  .add("name", StringType)
-  .add("age", IntegerType)
+df_result = spark.sql("""
+SELECT 
+    -- Revenue grouping 
+    PULocationID AS revenue_zone,
+    date_trunc('month', pickup_datetime) AS revenue_month, 
+    service_type, 
 
-// Apply the schema to the read operation
-val peopleDF = spark.read.schema(schema).json("path/to/json/file")
-peopleDF.show()
+    -- Revenue calculation 
+    SUM(fare_amount) AS revenue_monthly_fare,
+    SUM(extra) AS revenue_monthly_extra,
+    SUM(mta_tax) AS revenue_monthly_mta_tax,
+    SUM(tip_amount) AS revenue_monthly_tip_amount,
+    SUM(tolls_amount) AS revenue_monthly_tolls_amount,
+    SUM(improvement_surcharge) AS revenue_monthly_improvement_surcharge,
+    SUM(total_amount) AS revenue_monthly_total_amount,
+    SUM(congestion_surcharge) AS revenue_monthly_congestion_surcharge,
+
+    -- Additional calculations
+    AVG(passenger_count) AS avg_monthly_passenger_count,
+    AVG(trip_distance) AS avg_monthly_trip_distance
+FROM
+    trips_data
+GROUP BY
+    1, 2, 3
+""")
+```
+## Resilient Distributed Dataset (RDD) 
+RDDs are a foundational concept in Apache Spark, designed for high-efficiency distributed data handling and fault tolerance. Key features include:
+
+- **Parallel Processing**: Enables processing large datasets across a cluster.
+- **Fault Tolerance**: Automatically recovers data on node failure, ensuring resilience.
+- **Transformations and Actions**: Supports operations that transform data (lazily evaluated) and actions that trigger computations and produce results.
+
+Ideal for scalable, fault-tolerant data processing, RDDs form the backbone of Spark's data processing capabilities.
+
+## Create RDD
+```scala
+rdd = df_green \
+    .select('lpep_pickup_datetime', 'PULocationID', 'total_amount') \
+    .rdd
+```
+Using `.filter`
+```scala
+# selects all objects in the RDD
+rdd.filter(lambda row: True).take(1)
+
+# selects objects based on time filter
+start = dataetime (year=2020, month=1, day=1)
+rdd.filter(lambda row: row.lpep_pickup_datetime >= start).take(1)
 ```
