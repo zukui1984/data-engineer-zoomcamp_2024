@@ -37,12 +37,6 @@
   - Spark - Dataframes, SQL
   - Internals: GroupBy and joins
 
-- **Module 6: Streaming with Kafka (Streams & Connect), KSQL**
-  - Introduction to Kafka
-  - Schemas (avro)
-  - Kafka Streams
-  - Kafka Connect and KSQL
-
 - **Workshop 2: Stream processing (RisingWave) with SQL**
 
 # Course overview
