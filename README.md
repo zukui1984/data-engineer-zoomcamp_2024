@@ -7,12 +7,12 @@
   - Running Postgres locally with Docker
   - Setting up infrastructure on GCP with Terraform
 
-- **Module 2: Orchestration with Mage AI (Airflow alternative)**
+- **Module 2: Orchestration with Mage AI (Airflow alternative - https://www.mage.ai)**
   - Data Lake
   - Workflow orchestration
   - Workflow orchestration with Mage AI
 
-- **Workshop 1: Data Ingestion**
+- **Workshop 1: Data Ingestion with dlt (https://dlthub.com)**
   - Reading from apis
   - Building scalable pipelines
   - Normalising data
@@ -25,7 +25,7 @@
   - BigQuery best pratices
   - BigQuery Machine Learning
   
-- **Module 4: Analytics Engineering with dbt (data build tools)**
+- **Module 4: Analytics Engineering with dbt (data build tools - https://cloud.getdbt.com)**
   - Basics of analytics engineering
   - BigQuery and dbt | Postgres and dbt
   - dbt models
@@ -37,7 +37,7 @@
   - Spark - Dataframes, SQL
   - Internals: GroupBy and joins
 
-- **Workshop 2: Stream processing (RisingWave) with SQL**
+- **Workshop 2: Stream processing (RisingWave - https://risingwave.com & Redpanda - https://redpanda.com)**
 
 # Course overview
 ![image](https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/images/architecture/arch_v3_workshops.jpg)
