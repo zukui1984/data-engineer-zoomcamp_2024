@@ -25,7 +25,7 @@
   - BigQuery best pratices
   - BigQuery Machine Learning
   
-- **Module 4: Analytics Engineering with dbt (data build tools - https://cloud.getdbt.com)**
+- **Module 4: Analytics Engineering with dbt (data build tools - https://getdbt.com)**
   - Basics of analytics engineering
   - BigQuery and dbt | Postgres and dbt
   - dbt models
